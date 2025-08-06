@@ -19,7 +19,7 @@ namespace LOS.Service
                 UserName = u.UserName,
                 Email = u.Email,
                 PasswordHash = u.PasswordHash,
-                IsActive = u.IsActive,
+                //IsActive = u.IsActive
                 CreatedDate = u.CreatedDate
 
             };

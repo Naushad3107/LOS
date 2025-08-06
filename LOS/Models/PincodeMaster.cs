@@ -21,7 +21,7 @@ namespace LOS.Models
         [ForeignKey("Countries")]
         public int CountryId { get; set; }
 
-        public bool IsActive { get; set; }
+        public Byte IsActive { get; set; }
 
         public DateTime CreatedAt { get; set; } = DateTime.Now;
 

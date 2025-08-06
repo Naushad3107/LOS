@@ -13,8 +13,10 @@ namespace LOS.Models
 
         public string PasswordHash { get; set; }
 
-        public Boolean IsActive { get; set; }
+        public Byte IsActive { get; set; }
 
         public DateTime CreatedDate { get; set; }
+
+        public List<UserRoles> userRoles { get; set; }
     }
 }

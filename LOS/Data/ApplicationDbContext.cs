@@ -35,57 +35,57 @@ namespace LOS.Data
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
-
-            base.OnModelCreating(modelBuilder);
-
-            modelBuilder.Entity<UserRoles>()
-                .HasOne(ur => ur.User)
-                .WithMany()
-                .HasForeignKey(ur => ur.UserId)
+            modelBuilder.Entity<UserRoles>(ent =>
+            {
+                ent.HasOne(x => x.Role)
+                .WithMany(x => x.userRoles)
+                .HasForeignKey(x => x.RoleId)
                 .OnDelete(DeleteBehavior.Restrict);
 
-            modelBuilder.Entity<States>()
-                .HasOne(s => s.Country)
-                .WithMany(c => c.States)
-                .HasForeignKey(s => s.CountryId)
+            });
+            modelBuilder.Entity<UserRoles>(ent =>
+            {
+                ent.HasOne(x => x.User)
+                .WithMany(x => x.userRoles)
+                .HasForeignKey(x => x.UserId)
                 .OnDelete(DeleteBehavior.Restrict);
 
-            modelBuilder.Entity<States>()
-       .HasOne(s => s.Country)
-       .WithMany(c => c.States)
-       .HasForeignKey(s => s.CountryId)
-       .OnDelete(DeleteBehavior.Restrict);
-
-            // State - Cities (One-to-Many)
-            modelBuilder.Entity<Cities>()
-                .HasOne(city => city.State)
-                .WithMany(state => state.Cities)
-                .HasForeignKey(city => city.StateId)
+            });
+            modelBuilder.Entity<States>(ent =>
+            {
+                ent.HasOne(x => x.Country)
+                .WithMany(x => x.States)
+                .HasForeignKey(x => x.CountryId)
                 .OnDelete(DeleteBehavior.Restrict);
 
-            // PincodeMaster - City (Many-to-One)
-            modelBuilder.Entity<PincodeMaster>()
-                .HasOne(p => p.City)
-                .WithMany()
-                .HasForeignKey(p => p.CityId)
+            });
+            modelBuilder.Entity<Cities>(ent =>
+            {
+                ent.HasOne(x => x.State)
+                .WithMany(x => x.Cities)
+                .HasForeignKey(x => x.StateId)
                 .OnDelete(DeleteBehavior.Restrict);
+            });
+            modelBuilder.Entity<PincodeMaster>(ent =>
+            {
+                ent.HasOne(x => x.City)
+                .WithMany(x => x.Pincodes)
+                .HasForeignKey(x => x.CityId)
+                .OnDelete(DeleteBehavior.Restrict);
+                ent.HasOne(x => x.States)
+                .WithMany(x => x.Pincodes)
+                .HasForeignKey(x => x.StateId)
+                .OnDelete(DeleteBehavior.Restrict);
+                ent.HasOne(x => x.Countries)
+                .WithMany(x => x.Pincodes)
+                .HasForeignKey(x => x.CountryId)
+                .OnDelete(DeleteBehavior.Restrict);
+            });
 
-            // PincodeMaster - States (Many-to-One)
-            modelBuilder.Entity<PincodeMaster>()
-                .HasOne(p => p.States)
-                .WithMany()
-                .HasForeignKey(p => p.StateId)
-                .OnDelete(DeleteBehavior.Restrict);
-
-            // PincodeMaster - Countries (Many-to-One)
-            modelBuilder.Entity<PincodeMaster>()
-                .HasOne(p => p.Countries)
-                .WithMany() 
-                .HasForeignKey(p => p.CountryId)
-                .OnDelete(DeleteBehavior.Restrict);
 
         }
-    } 
- 
+
     }
+
+}
 

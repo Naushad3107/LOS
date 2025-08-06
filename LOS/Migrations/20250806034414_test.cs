@@ -6,7 +6,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 namespace LOS.Migrations
 {
     /// <inheritdoc />
-    public partial class @base : Migration
+    public partial class test : Migration
     {
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)
@@ -196,7 +196,8 @@ namespace LOS.Migrations
                     RoleName = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     UserId = table.Column<int>(type: "int", nullable: false),
                     RoleId = table.Column<int>(type: "int", nullable: false),
-                    AssignedAt = table.Column<DateTime>(type: "datetime2", nullable: false)
+                    AssignedAt = table.Column<DateTime>(type: "datetime2", nullable: false),
+                    UserRolesUserRoleId = table.Column<int>(type: "int", nullable: true)
                 },
                 constraints: table =>
                 {
@@ -206,7 +207,12 @@ namespace LOS.Migrations
                         column: x => x.RoleId,
                         principalTable: "Roles",
                         principalColumn: "RoleId",
-                        onDelete: ReferentialAction.Cascade);
+                        onDelete: ReferentialAction.Restrict);
+                    table.ForeignKey(
+                        name: "FK_UserRoles_UserRoles_UserRolesUserRoleId",
+                        column: x => x.UserRolesUserRoleId,
+                        principalTable: "UserRoles",
+                        principalColumn: "UserRoleId");
                     table.ForeignKey(
                         name: "FK_UserRoles_Users_UserId",
                         column: x => x.UserId,
@@ -223,7 +229,8 @@ namespace LOS.Migrations
                         .Annotation("SqlServer:Identity", "1, 1"),
                     CityName = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     StateId = table.Column<int>(type: "int", nullable: false),
-                    IsActive = table.Column<bool>(type: "bit", nullable: false)
+                    IsActive = table.Column<bool>(type: "bit", nullable: false),
+                    CitiesCityId = table.Column<int>(type: "int", nullable: true)
                 },
                 constraints: table =>
                 {
@@ -234,6 +241,11 @@ namespace LOS.Migrations
                         principalTable: "States",
                         principalColumn: "StateId",
                         onDelete: ReferentialAction.Restrict);
+                    table.ForeignKey(
+                        name: "FK_cities_cities_CitiesCityId",
+                        column: x => x.CitiesCityId,
+                        principalTable: "cities",
+                        principalColumn: "CityId");
                 });
 
             migrationBuilder.CreateTable(
@@ -334,6 +346,11 @@ namespace LOS.Migrations
                 column: "StateId");
 
             migrationBuilder.CreateIndex(
+                name: "IX_cities_CitiesCityId",
+                table: "cities",
+                column: "CitiesCityId");
+
+            migrationBuilder.CreateIndex(
                 name: "IX_cities_StateId",
                 table: "cities",
                 column: "StateId");
@@ -367,6 +384,11 @@ namespace LOS.Migrations
                 name: "IX_UserRoles_UserId",
                 table: "UserRoles",
                 column: "UserId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_UserRoles_UserRolesUserRoleId",
+                table: "UserRoles",
+                column: "UserRolesUserRoleId");
         }
 
         /// <inheritdoc />

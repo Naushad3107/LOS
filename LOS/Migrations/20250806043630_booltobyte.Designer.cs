@@ -12,8 +12,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace LOS.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20250805110540_base")]
-    partial class @base
+    [Migration("20250806043630_booltobyte")]
+    partial class booltobyte
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -56,8 +56,8 @@ namespace LOS.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<bool>("IsActive")
-                        .HasColumnType("bit");
+                    b.Property<byte>("IsActive")
+                        .HasColumnType("tinyint");
 
                     b.Property<DateTime>("LastUpdatedAt")
                         .HasColumnType("datetime2");
@@ -144,17 +144,22 @@ namespace LOS.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("CityId"));
 
+                    b.Property<int?>("CitiesCityId")
+                        .HasColumnType("int");
+
                     b.Property<string>("CityName")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<bool>("IsActive")
-                        .HasColumnType("bit");
+                    b.Property<byte>("IsActive")
+                        .HasColumnType("tinyint");
 
                     b.Property<int>("StateId")
                         .HasColumnType("int");
 
                     b.HasKey("CityId");
+
+                    b.HasIndex("CitiesCityId");
 
                     b.HasIndex("StateId");
 
@@ -204,8 +209,8 @@ namespace LOS.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<bool>("IsActive")
-                        .HasColumnType("bit");
+                    b.Property<byte>("IsActive")
+                        .HasColumnType("tinyint");
 
                     b.Property<DateTime>("LastUpdatedAt")
                         .HasColumnType("datetime2");
@@ -238,8 +243,8 @@ namespace LOS.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<bool>("IsActive")
-                        .HasColumnType("bit");
+                    b.Property<byte>("IsActive")
+                        .HasColumnType("tinyint");
 
                     b.Property<DateTime>("LastUpdatedAt")
                         .HasColumnType("datetime2");
@@ -264,8 +269,8 @@ namespace LOS.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<bool>("IsActive")
-                        .HasColumnType("bit");
+                    b.Property<byte>("IsActive")
+                        .HasColumnType("tinyint");
 
                     b.Property<DateTime>("LastUpdatedAt")
                         .HasColumnType("datetime2");
@@ -298,8 +303,8 @@ namespace LOS.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<bool>("IsActive")
-                        .HasColumnType("bit");
+                    b.Property<byte>("IsActive")
+                        .HasColumnType("tinyint");
 
                     b.Property<DateTime>("LastUpdatedAt")
                         .HasColumnType("datetime2");
@@ -338,8 +343,8 @@ namespace LOS.Migrations
                     b.Property<DateTime>("CreatedAt")
                         .HasColumnType("datetime2");
 
-                    b.Property<bool>("IsActive")
-                        .HasColumnType("bit");
+                    b.Property<byte>("IsActive")
+                        .HasColumnType("tinyint");
 
                     b.Property<DateTime>("LastUpdatedAt")
                         .HasColumnType("datetime2");
@@ -377,8 +382,8 @@ namespace LOS.Migrations
                     b.Property<DateTime>("CreatedAt")
                         .HasColumnType("datetime2");
 
-                    b.Property<bool>("IsActive")
-                        .HasColumnType("bit");
+                    b.Property<byte>("IsActive")
+                        .HasColumnType("tinyint");
 
                     b.Property<DateTime>("LastUpdatedAt")
                         .HasColumnType("datetime2");
@@ -408,8 +413,8 @@ namespace LOS.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<bool>("IsActive")
-                        .HasColumnType("bit");
+                    b.Property<byte>("IsActive")
+                        .HasColumnType("tinyint");
 
                     b.Property<string>("RoleName")
                         .IsRequired()
@@ -463,11 +468,16 @@ namespace LOS.Migrations
                     b.Property<int>("UserId")
                         .HasColumnType("int");
 
+                    b.Property<int?>("UserRolesUserRoleId")
+                        .HasColumnType("int");
+
                     b.HasKey("UserRoleId");
 
                     b.HasIndex("RoleId");
 
                     b.HasIndex("UserId");
+
+                    b.HasIndex("UserRolesUserRoleId");
 
                     b.ToTable("UserRoles");
                 });
@@ -487,8 +497,8 @@ namespace LOS.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<bool>("IsActive")
-                        .HasColumnType("bit");
+                    b.Property<byte>("IsActive")
+                        .HasColumnType("tinyint");
 
                     b.Property<string>("PasswordHash")
                         .IsRequired()
@@ -532,6 +542,10 @@ namespace LOS.Migrations
 
             modelBuilder.Entity("LOS.Models.Cities", b =>
                 {
+                    b.HasOne("LOS.Models.Cities", null)
+                        .WithMany("cities")
+                        .HasForeignKey("CitiesCityId");
+
                     b.HasOne("LOS.Models.States", "State")
                         .WithMany("Cities")
                         .HasForeignKey("StateId")
@@ -544,19 +558,19 @@ namespace LOS.Migrations
             modelBuilder.Entity("LOS.Models.PincodeMaster", b =>
                 {
                     b.HasOne("LOS.Models.Cities", "City")
-                        .WithMany()
+                        .WithMany("Pincodes")
                         .HasForeignKey("CityId")
                         .OnDelete(DeleteBehavior.Restrict)
                         .IsRequired();
 
                     b.HasOne("LOS.Models.Countries", "Countries")
-                        .WithMany()
+                        .WithMany("Pincodes")
                         .HasForeignKey("CountryId")
                         .OnDelete(DeleteBehavior.Restrict)
                         .IsRequired();
 
                     b.HasOne("LOS.Models.States", "States")
-                        .WithMany()
+                        .WithMany("Pincodes")
                         .HasForeignKey("StateId")
                         .OnDelete(DeleteBehavior.Restrict)
                         .IsRequired();
@@ -582,30 +596,60 @@ namespace LOS.Migrations
             modelBuilder.Entity("LOS.Models.UserRoles", b =>
                 {
                     b.HasOne("LOS.Models.Roles", "Role")
-                        .WithMany()
+                        .WithMany("userRoles")
                         .HasForeignKey("RoleId")
-                        .OnDelete(DeleteBehavior.Cascade)
+                        .OnDelete(DeleteBehavior.Restrict)
                         .IsRequired();
 
                     b.HasOne("LOS.Models.Users", "User")
-                        .WithMany()
+                        .WithMany("userRoles")
                         .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Restrict)
                         .IsRequired();
+
+                    b.HasOne("LOS.Models.UserRoles", null)
+                        .WithMany("RoleTypes")
+                        .HasForeignKey("UserRolesUserRoleId");
 
                     b.Navigation("Role");
 
                     b.Navigation("User");
                 });
 
+            modelBuilder.Entity("LOS.Models.Cities", b =>
+                {
+                    b.Navigation("Pincodes");
+
+                    b.Navigation("cities");
+                });
+
             modelBuilder.Entity("LOS.Models.Countries", b =>
                 {
+                    b.Navigation("Pincodes");
+
                     b.Navigation("States");
+                });
+
+            modelBuilder.Entity("LOS.Models.Roles", b =>
+                {
+                    b.Navigation("userRoles");
                 });
 
             modelBuilder.Entity("LOS.Models.States", b =>
                 {
                     b.Navigation("Cities");
+
+                    b.Navigation("Pincodes");
+                });
+
+            modelBuilder.Entity("LOS.Models.UserRoles", b =>
+                {
+                    b.Navigation("RoleTypes");
+                });
+
+            modelBuilder.Entity("LOS.Models.Users", b =>
+                {
+                    b.Navigation("userRoles");
                 });
 #pragma warning restore 612, 618
         }

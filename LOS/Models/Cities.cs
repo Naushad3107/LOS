@@ -12,9 +12,13 @@ namespace LOS.Models
         [ForeignKey("State")]
         public int StateId { get; set; }
 
-        public bool IsActive { get; set; } = true;
+        public Byte IsActive { get; set; } 
 
         // Navigation 
         public States State { get; set; }
+
+        public List<Cities> cities { get; set; }
+
+        public List<PincodeMaster> Pincodes { get; set; }
     }
 }

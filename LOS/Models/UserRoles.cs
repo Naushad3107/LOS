@@ -22,5 +22,7 @@ namespace LOS.Models
         public Users User { get; set; }
 
         public Roles Role { get; set; }
+
+        public List<UserRoles> RoleTypes { get; set; }
     }
 }

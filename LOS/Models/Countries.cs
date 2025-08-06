@@ -11,6 +11,7 @@ namespace LOS.Models
 
         public bool IsActive { get; set; }
         // Navigation property for related states
-        public ICollection<States> States { get; set; }
+        public List<States> States { get; set; }
+        public List<PincodeMaster> Pincodes { get; set; }
     }
 }

@@ -15,6 +15,7 @@ namespace LOS.Models
         // Navigation property
         public List<Cities> Cities { get; set; }
 
+        public List<PincodeMaster> Pincodes { get; set; }
         public Countries Country { get; set; }
     }
 }

@@ -12,7 +12,7 @@ namespace LOS.Models
         public string TypeName { get; set; }
 
         public string Description { get; set; }
-        public bool IsActive { get; set; }
+        public Byte IsActive { get; set; }
 
         public DateTime CreatedAt { get; set; } = DateTime.Now;
 

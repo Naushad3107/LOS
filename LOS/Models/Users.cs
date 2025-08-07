@@ -17,6 +17,8 @@ namespace LOS.Models
 
         public DateTime CreatedDate { get; set; }
 
+        public bool IsDeleted { get; set; } = false;
+
         public List<UserRoles> userRoles { get; set; }
     }
 }

@@ -8,5 +8,7 @@ namespace LOS.DTO.StateDTOs
         public string StateName { get; set; }
         
         public int CountryId { get; set; }
+
+        public bool IsDeleted { get; set; } = false;
     }
 }

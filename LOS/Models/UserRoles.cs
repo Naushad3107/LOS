@@ -16,6 +16,10 @@ namespace LOS.Models
         [ForeignKey("Role")]
         public int RoleId { get; set; }
 
+        public Byte IsActive { get; set; }
+
+        public bool IsDeleted { get; set; }
+
         public DateTime AssignedAt { get; set; }
 
         //navigation

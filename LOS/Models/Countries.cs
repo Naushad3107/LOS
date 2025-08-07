@@ -11,6 +11,8 @@ namespace LOS.Models
 
         public bool IsActive { get; set; }
 
+        public bool IsDeleted { get; set; } = false;
+
         // Navigation property for related states
         public List<States> States { get; set; }
         public List<PincodeMaster> Pincodes { get; set; }

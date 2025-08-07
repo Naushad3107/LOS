@@ -34,6 +34,8 @@ namespace LOS.Models
         public DateTime CreatedAt { get; set; } = DateTime.Now;
         public DateTime LastUpdatedAt { get; set; } 
 
+        public bool IsDeleted { get; set; } = false;
+
         // navigation prop
 
         public Cities Cities { get; set; }

@@ -15,6 +15,8 @@ namespace LOS.Models
 
         public Byte IsActive { get; set; }
 
+        public bool IsDeleted { get; set; } = false;
+
         public DateTime CreatedAt { get; set; } = DateTime.Now;
 
         public DateTime LastUpdatedAt { get; set; }

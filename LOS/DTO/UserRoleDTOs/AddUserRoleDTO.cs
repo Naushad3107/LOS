@@ -17,5 +17,9 @@ namespace LOS.DTO.UserRoleDTOs
 
         public DateTime AssignedAt { get; set; }
 
+        public Byte IsActive { get; set; }
+
+        public bool IsDeleted { get; set; } = false;
+
     }
 }

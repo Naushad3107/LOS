@@ -34,7 +34,7 @@ namespace LOS.Service
         public List<Roles> FetchRoles()
         {
             
-            var data = db.Roles.ToList();
+            var data = db.Roles.Where(x => x.IsDeleted == false).ToList();
            
                 return data;        
 
@@ -49,7 +49,7 @@ namespace LOS.Service
             }
             try
             {
-                db.Roles.Remove(role);
+                role.IsDeleted = false;
                 db.SaveChanges();
             }
             catch (DbUpdateException ex)

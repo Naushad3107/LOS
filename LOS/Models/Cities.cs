@@ -14,6 +14,8 @@ namespace LOS.Models
 
         public Byte IsActive { get; set; } 
 
+        public bool IsDeleted { get; set; } = false;
+
         // Navigation 
         public States State { get; set; }
 

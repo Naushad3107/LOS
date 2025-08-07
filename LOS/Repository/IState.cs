@@ -6,5 +6,7 @@ namespace LOS.Repository
     {
         void AddState(AddStateDTO state);
         List<FetchStateDTO> FetchStates();
+
+        void DeleteState(int id);
     }
 }

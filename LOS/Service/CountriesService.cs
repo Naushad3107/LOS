@@ -31,7 +31,7 @@ namespace LOS.Service
 
         public List<Countries> GetCountries() 
         {
-            var data = db.countries.ToList();
+            var data = db.countries.Where(x => x.IsDeleted == false).ToList();
             return data;
         }
 
@@ -45,7 +45,7 @@ namespace LOS.Service
             else
             {
 
-                db.countries.Remove(data);
+                data.IsDeleted = true;
                 db.SaveChanges();
             }
 

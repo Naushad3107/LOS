@@ -39,6 +39,22 @@ namespace LOS.Controllers
             return Ok(data);
         }
 
-        
+        [HttpDelete("{id}")]
+        public IActionResult Delete(int id) {
+            try
+            {
+                service.DeleteState(id);
+                return Ok(new { message = " Role Is Deleted" });
+            }
+            catch (KeyNotFoundException knf)
+            {
+                return NotFound(new { message = knf.Message });
+            }
+            catch (InvalidOperationException ioe)
+            {
+
+                return Conflict(new { message = ioe.Message });
+            }
+        }
     }
 }

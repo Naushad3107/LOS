@@ -12,6 +12,8 @@ namespace LOS.Models
         [ForeignKey("Country")]
         public int CountryId { get; set; }
 
+        public bool IsDeleted { get; set; }
+
         // Navigation property
         public List<Cities> Cities { get; set; }
 

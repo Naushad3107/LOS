@@ -10,6 +10,8 @@
 
         public Byte IsActive { get; set; }
 
+        public bool IsDeleted { get; set; } = false;
+
 
     }
 }

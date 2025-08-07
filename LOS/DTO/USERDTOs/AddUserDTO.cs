@@ -13,5 +13,7 @@
         public Boolean IsActive { get; set; }
 
         public DateTime CreatedDate { get; set; } = DateTime.Now;
+
+        public bool IsDeleted { get; set; } = false;
     }
 }

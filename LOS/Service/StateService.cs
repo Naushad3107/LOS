@@ -32,10 +32,30 @@ namespace LOS.Service
         }
         public List<FetchStateDTO> FetchStates()
         {
-            var data = db.States.Include(x => x.Country);
+            var data = db.States.Include(x => x.Country).Where(x => x.IsDeleted == false);
             var map = mapper.Map<List<FetchStateDTO>>(data);
             return map;
 
+        }
+
+        public void DeleteState(int id)
+        {
+            var role = db.States.FirstOrDefault(r => r.StateId == id);
+            if (role == null)
+            {
+                throw new KeyNotFoundException($"Role with ID {id} not found.");
+            }
+            try
+            {
+                role.IsDeleted = true;
+                db.SaveChanges();
+            }
+            catch (DbUpdateException ex)
+            {
+
+                throw new InvalidOperationException(
+                    "Cannot delete role  because it is referenced as a foreign key in another table.");
+            }
         }
     }
 }

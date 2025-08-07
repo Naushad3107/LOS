@@ -14,6 +14,8 @@ namespace LOS.Models
 
         public Byte IsActive { get; set; }
 
+        public bool IsDeleted { get; set; }
+
         public List<UserRoles> userRoles { get; set; }
     }
 }

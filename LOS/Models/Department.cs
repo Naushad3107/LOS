@@ -9,6 +9,8 @@ namespace LOS.Models
         public string DepartmentName { get; set; }
         public string Description { get; set; }
         public Byte IsActive { get; set; }
+
+        public bool IsDeleted { get; set; } = false;
         public DateTime CreatedAt { get; set; } = DateTime.Now;
         public DateTime LastUpdatedAt { get; set;  } 
        

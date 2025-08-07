@@ -30,7 +30,7 @@ namespace LOS.Service
 
         public List<Users> FetchUser()
         {
-            var data = db.Users.ToList();
+            var data = db.Users.Where(x => x.IsDeleted == false).ToList();
 
             return data;
         }
@@ -64,7 +64,7 @@ namespace LOS.Service
             var user = db.Users.FirstOrDefault(u => u.UserId == userId);
             if (user != null)
             {
-                db.Users.Remove(user);
+                user.IsDeleted = true; // Soft delete
                 db.SaveChanges();
             }
         }

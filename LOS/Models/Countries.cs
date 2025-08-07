@@ -10,6 +10,7 @@ namespace LOS.Models
         public string CountryCode { get; set; }
 
         public bool IsActive { get; set; }
+
         // Navigation property for related states
         public List<States> States { get; set; }
         public List<PincodeMaster> Pincodes { get; set; }

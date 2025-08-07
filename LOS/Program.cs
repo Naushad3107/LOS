@@ -1,4 +1,5 @@
 using LOS.Data;
+using LOS.Mapper;
 using LOS.Repository;
 using LOS.Service;
 using Microsoft.EntityFrameworkCore;
@@ -16,7 +17,12 @@ builder.Services.AddDbContext<ApplicationDbContext>(options =>
 options.UseSqlServer(builder.Configuration.GetConnectionString("dbconn")));
 
 builder.Services.AddScoped<IUserService, UserService>();
+builder.Services.AddScoped<IRole, RoleService>();
+builder.Services.AddScoped<IUserRole, UserRoleService>();
+builder.Services.AddScoped<ICountries, CountriesService>();
+builder.Services.AddScoped<IState, StateService>();
 
+builder.Services.AddAutoMapper(typeof(MappingData));
 
 var app = builder.Build();
 

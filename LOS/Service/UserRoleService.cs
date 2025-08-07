@@ -1,15 +1,20 @@
-﻿using LOS.Data;
+﻿using AutoMapper;
+using LOS.Data;
 using LOS.DTO.UserRoleDTOs;
+using LOS.Models;
 using LOS.Repository;
+using Microsoft.EntityFrameworkCore;
 
 namespace LOS.Service
 {
     public class UserRoleService : IUserRole
     {
         ApplicationDbContext db;
+        IMapper mapper;
 
-        public UserRoleService(ApplicationDbContext db)
+        public UserRoleService(ApplicationDbContext db,IMapper mapper)
         {
+            this.mapper = mapper;
             this.db = db;
         }
 
@@ -21,15 +26,18 @@ namespace LOS.Service
             }
             else
             {
-                var userRole = new Models.UserRoles
-                {
-                    UserId = role.UserId,
-                    RoleId = role.RoleId,
-                    AssignedAt = DateTime.UtcNow
-                };
-                db.UserRoles.Add(userRole);
+               var map = mapper.Map<UserRoles>(role);
+                db.UserRoles.Add(map);
                 db.SaveChanges();
             }
+        }
+
+        public List<FetchUserRole> FetchUserRoles()
+        {
+            var data = db.UserRoles.Include(ur => ur.User).Include(ur => ur.Role).ToList();
+            var map = mapper.Map<List<FetchUserRole>>(data);
+
+            return map;
         }
     }
 }

@@ -1,11 +1,7 @@
-﻿using System.ComponentModel.DataAnnotations;
-using System.ComponentModel.DataAnnotations.Schema;
-
-namespace LOS.DTO.PincodeDTOs
+﻿namespace LOS.DTO.PincodeDTOs
 {
-    public class AddPinCodeDTO
+    public class FetchPinCodeDTO
     {
-
         public int PincodeId { get; set; }
 
         public string Pincode { get; set; }
@@ -18,13 +14,12 @@ namespace LOS.DTO.PincodeDTOs
 
         public int StateId { get; set; }
 
+        public string StateName { get; set; }
+
         public int CountryId { get; set; }
 
-        public Byte IsActive { get; set; } = 1;
-
+        public string CountryName { get; set; }
 
         public DateTime CreatedAt { get; set; } = DateTime.Now;
-
-
     }
 }

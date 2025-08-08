@@ -12,7 +12,7 @@ namespace LOS.Controllers
     public class CountryController : ControllerBase
     {
         ICountries service;
-        public CountryController(ICountries service) 
+        public CountryController(ICountries service)
         {
             this.service = service;
         }
@@ -25,7 +25,8 @@ namespace LOS.Controllers
             {
                 return BadRequest(new { message = "Country data cannot be null" });
             }
-            else {
+            else
+            {
 
                 service.AddCountry(country);
                 return Ok(new { message = "Country added successfully" });
@@ -35,7 +36,7 @@ namespace LOS.Controllers
 
         [HttpGet]
         [Route("ShowCountries")]
-        public IActionResult GetCountry() 
+        public IActionResult GetCountry()
         {
             var data = service.GetCountries();
             return Ok(data);
@@ -43,10 +44,33 @@ namespace LOS.Controllers
 
         [HttpDelete]
         [Route("DeleteCountries")]
-        public IActionResult DeleteCountry(int id) 
+        public IActionResult DeleteCountry(int id)
         {
             service.DeleteCountry(id);
             return Ok(new { message = "Country Deleted" });
+        }
+
+        [HttpGet]
+        [Route("CountryById")]
+        public IActionResult FindCountryById(int id)
+        {
+            var data = service.FindCountryById(id);
+            return Ok(data);
+        }
+
+        [HttpPut]
+        [Route("UpdateCountry")]
+        public IActionResult UpdateCountry(UpdateCountryDTO country)
+        {
+            if (country == null)
+            {
+                return BadRequest(new { message = "Country data cannot be null" });
+            }
+            else
+            {
+                service.UpdateCountry(country);
+                return Ok(new { message = "Country updated successfully" });
+            }
         }
     }
 }

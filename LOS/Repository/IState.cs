@@ -1,4 +1,5 @@
 ﻿using LOS.DTO.StateDTOs;
+using LOS.Models;
 
 namespace LOS.Repository
 {
@@ -8,5 +9,9 @@ namespace LOS.Repository
         List<FetchStateDTO> FetchStates();
 
         void DeleteState(int id);
+
+        States FindStateById(int id);
+
+        void UpdateState(UpdateStateDTO state);
     }
 }

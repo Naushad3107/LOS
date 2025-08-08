@@ -23,6 +23,7 @@ namespace LOS.Service
             }
             else {
                 var map = mapper.Map<Countries>(country);
+                map.IsDeleted = false;
 
                 db.countries.Add(map);
                 db.SaveChanges();
@@ -49,6 +50,29 @@ namespace LOS.Service
                 db.SaveChanges();
             }
 
+        }
+
+        public Countries FindCountryById(int id)
+        {
+            var data = db.countries.Where(x => x.IsDeleted == false).FirstOrDefault();
+            return data;
+        }
+
+        public void UpdateCountry(UpdateCountryDTO country)
+        {
+            var data = FindCountryById(country.CountryId);
+
+            if (data == null)
+            {
+                throw new Exception(message: "Country not found");
+            }
+            else
+            {
+                var map = mapper.Map<UpdateCountryDTO, Countries>(country, data);
+                map.IsDeleted = false;
+                db.countries.Update(map);
+                db.SaveChanges();
+            }
         }
 
     }

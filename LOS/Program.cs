@@ -22,6 +22,7 @@ builder.Services.AddScoped<IUserRole, UserRoleService>();
 builder.Services.AddScoped<ICountries, CountriesService>();
 builder.Services.AddScoped<IState, StateService>();
 builder.Services.AddScoped<ICities, CitiesService>();
+builder.Services.AddScoped<IPincode, PincodeService>();
 
 builder.Services.AddAutoMapper(typeof(MappingData));
 

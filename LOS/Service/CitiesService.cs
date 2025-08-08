@@ -29,6 +29,7 @@ namespace LOS.Service
             else
             {
                 var map = mapper.Map<Cities>(city);
+                map.IsDeleted = false;
                 db.cities.Add(map);
                 db.SaveChanges();
             }

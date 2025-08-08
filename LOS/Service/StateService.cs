@@ -26,6 +26,7 @@ namespace LOS.Service
             else
             {
                 var map = mapper.Map<States>(state);
+                map.IsDeleted = false;
                 db.States.Add(map);
                 db.SaveChanges();
             }
@@ -56,6 +57,25 @@ namespace LOS.Service
                 throw new InvalidOperationException(
                     "Cannot delete role  because it is referenced as a foreign key in another table.");
             }
+        }
+
+        public States FindStateById(int id)
+        {
+            var data = db.States.Where(x => x.StateId == id).Where(x => x.IsDeleted == false).FirstOrDefault();
+            return data;
+        }
+
+        public void UpdateState(UpdateStateDTO state)
+        {
+            var data = db.States.FirstOrDefault(x => x.StateId == state.StateId);
+            if (data == null)
+            {
+                throw new KeyNotFoundException($"State with ID {state.StateId} not found.");
+            }
+            mapper.Map(state, data);
+
+            db.States.Update(data);
+            db.SaveChanges();
         }
     }
 }

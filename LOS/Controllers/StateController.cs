@@ -56,5 +56,43 @@ namespace LOS.Controllers
                 return Conflict(new { message = ioe.Message });
             }
         }
+
+        [HttpGet]
+        [Route("FindStateById")]
+        public IActionResult FindStateById(int id)
+        {
+           var data = service.FindStateById(id);
+            if(data == null)
+            {
+                return BadRequest( " State Not Found");
+            }
+            return Ok(data);
+        }
+
+        [HttpPut]
+        [Route("UpdateState")]
+        public IActionResult UpdateState(UpdateStateDTO state) {
+            if (state == null)
+            {
+                return BadRequest("State data is null");
+            }
+            else if (state.StateId <= 0)
+            {
+                return BadRequest("Invalid State ID");
+            }
+            else
+            {
+                var existingState = service.FindStateById(state.StateId);
+                if (existingState == null)
+                {
+                    return NotFound("State not found");
+                }
+                else
+                {
+                    service.UpdateState(state);
+                    return Ok(new { message = "State updated successfully" });
+                }
+            }
+        }
     }
 }

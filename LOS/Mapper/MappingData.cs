@@ -1,6 +1,7 @@
 ﻿using AutoMapper;
 using LOS.DTO.CitiesDTOs;
 using LOS.DTO.CountryDTOs;
+using LOS.DTO.PincodeDTOs;
 using LOS.DTO.RoleDTOs;
 using LOS.DTO.StateDTOs;
 using LOS.DTO.USERDTOs;
@@ -30,17 +31,25 @@ namespace LOS.Mapper
 
             //for Country
             CreateMap<Countries, AddCountryDTO>().ReverseMap();
+            CreateMap<Countries, UpdateCountryDTO>().ReverseMap();
 
             //for State
             CreateMap<States, AddStateDTO>().ReverseMap();
             CreateMap<States, FetchStateDTO>()
                 .ForMember(dest => dest.CountryName, opt => opt.MapFrom(src => src.Country.CountryName));
+            CreateMap<States, UpdateStateDTO>().ReverseMap();
+
 
             //for city
             CreateMap<Cities, AddCitiesDTO>().ReverseMap();
             CreateMap<Cities, GetCitiesDTO>()
                 .ForMember(dest => dest.StateName, opt => opt.MapFrom(src => src.State.StateName));
                 
+            //for pincode
+            CreateMap<PincodeMaster, AddPinCodeDTO>().ReverseMap();
+            CreateMap<PincodeMaster, FetchPinCodeDTO>()
+                .ForMember(dest => dest.StateName, opt => opt.MapFrom(src => src.States.StateName))
+                .ForMember(dest => dest.CountryName, opt => opt.MapFrom(src => src.Countries.CountryName));
         }
     }
     

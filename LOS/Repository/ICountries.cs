@@ -11,6 +11,12 @@ namespace LOS.Repository
 
         void DeleteCountry(int id);
 
+        void UpdateCountry(UpdateCountryDTO country);
+
+        Countries FindCountryById(int id);
+
+
+
 
     }
 }

@@ -64,7 +64,7 @@ namespace LOS.Migrations
 
                     b.HasKey("BankId");
 
-                    b.ToTable("banks");
+                    b.ToTable("banks", (string)null);
                 });
 
             modelBuilder.Entity("LOS.Models.Branch", b =>
@@ -136,7 +136,7 @@ namespace LOS.Migrations
 
                     b.HasIndex("StateId");
 
-                    b.ToTable("branches");
+                    b.ToTable("branches", (string)null);
                 });
 
             modelBuilder.Entity("LOS.Models.Cities", b =>
@@ -169,7 +169,7 @@ namespace LOS.Migrations
 
                     b.HasIndex("StateId");
 
-                    b.ToTable("cities");
+                    b.ToTable("cities", (string)null);
                 });
 
             modelBuilder.Entity("LOS.Models.Countries", b =>
@@ -196,7 +196,7 @@ namespace LOS.Migrations
 
                     b.HasKey("CountryId");
 
-                    b.ToTable("countries");
+                    b.ToTable("countries", (string)null);
                 });
 
             modelBuilder.Entity("LOS.Models.Department", b =>
@@ -229,7 +229,7 @@ namespace LOS.Migrations
 
                     b.HasKey("DepartmentId");
 
-                    b.ToTable("departments");
+                    b.ToTable("departments", (string)null);
                 });
 
             modelBuilder.Entity("LOS.Models.DocumentType", b =>
@@ -266,7 +266,7 @@ namespace LOS.Migrations
 
                     b.HasKey("DocumentTypeId");
 
-                    b.ToTable("documentTypes");
+                    b.ToTable("documentTypes", (string)null);
                 });
 
             modelBuilder.Entity("LOS.Models.EmployementType", b =>
@@ -303,7 +303,7 @@ namespace LOS.Migrations
 
                     b.HasKey("EmployeementTypeId");
 
-                    b.ToTable("employementTypes");
+                    b.ToTable("employementTypes", (string)null);
                 });
 
             modelBuilder.Entity("LOS.Models.OccupationType", b =>
@@ -340,7 +340,7 @@ namespace LOS.Migrations
 
                     b.HasKey("OccupationTypeId");
 
-                    b.ToTable("occupationTypes");
+                    b.ToTable("occupationTypes", (string)null);
                 });
 
             modelBuilder.Entity("LOS.Models.PincodeMaster", b =>
@@ -388,7 +388,7 @@ namespace LOS.Migrations
 
                     b.HasIndex("StateId");
 
-                    b.ToTable("pincodes");
+                    b.ToTable("pincodes", (string)null);
                 });
 
             modelBuilder.Entity("LOS.Models.RejectionReason", b =>
@@ -425,7 +425,7 @@ namespace LOS.Migrations
 
                     b.HasKey("ReasonId");
 
-                    b.ToTable("rejectionReasons");
+                    b.ToTable("rejectionReasons", (string)null);
                 });
 
             modelBuilder.Entity("LOS.Models.Roles", b =>
@@ -452,7 +452,7 @@ namespace LOS.Migrations
 
                     b.HasKey("RoleId");
 
-                    b.ToTable("Roles");
+                    b.ToTable("Roles", (string)null);
                 });
 
             modelBuilder.Entity("LOS.Models.States", b =>
@@ -477,7 +477,7 @@ namespace LOS.Migrations
 
                     b.HasIndex("CountryId");
 
-                    b.ToTable("States");
+                    b.ToTable("States", (string)null);
                 });
 
             modelBuilder.Entity("LOS.Models.UserRoles", b =>
@@ -518,7 +518,7 @@ namespace LOS.Migrations
 
                     b.HasIndex("UserRolesUserRoleId");
 
-                    b.ToTable("UserRoles");
+                    b.ToTable("UserRoles", (string)null);
                 });
 
             modelBuilder.Entity("LOS.Models.Users", b =>
@@ -552,7 +552,7 @@ namespace LOS.Migrations
 
                     b.HasKey("UserId");
 
-                    b.ToTable("Users");
+                    b.ToTable("Users", (string)null);
                 });
 
             modelBuilder.Entity("LOS.Models.Branch", b =>

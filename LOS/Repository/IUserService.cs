@@ -16,5 +16,9 @@ namespace LOS.Repository
         void DeleteUser(int userId);
 
 
+        Task<Users?> GetByEmailWithRolesAsync(string email);
+        bool VerifyPasswordAsync(Users user, string password);
+
+
     }
 }

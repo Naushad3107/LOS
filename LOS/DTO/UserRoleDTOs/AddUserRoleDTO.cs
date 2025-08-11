@@ -5,7 +5,6 @@ namespace LOS.DTO.UserRoleDTOs
 {
     public class AddUserRoleDTO
     {
-        public int UserRoleId { get; set; }
 
         public string RoleName { get; set; }
 
@@ -19,7 +18,7 @@ namespace LOS.DTO.UserRoleDTOs
 
         public Byte IsActive { get; set; }
 
-        public bool IsDeleted { get; set; } = false;
+
 
     }
 }

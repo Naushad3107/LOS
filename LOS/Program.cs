@@ -2,7 +2,10 @@ using LOS.Data;
 using LOS.Mapper;
 using LOS.Repository;
 using LOS.Service;
+using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.IdentityModel.Tokens;
+using System.Text;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -23,8 +26,36 @@ builder.Services.AddScoped<ICountries, CountriesService>();
 builder.Services.AddScoped<IState, StateService>();
 builder.Services.AddScoped<ICities, CitiesService>();
 builder.Services.AddScoped<IPincode, PincodeService>();
+builder.Services.AddScoped<IToken, TokenService>();
+builder.Services.AddScoped<IAuth, AuthService>();
 
 builder.Services.AddAutoMapper(typeof(MappingData));
+
+
+builder.Services.AddAuthentication(options =>
+{
+    options.DefaultAuthenticateScheme = JwtBearerDefaults.AuthenticationScheme;
+    options.DefaultChallengeScheme = JwtBearerDefaults.AuthenticationScheme;
+})
+    .AddJwtBearer(options =>
+    {
+        var cfg = builder.Configuration.GetSection("JwtSettings");
+        var key = Encoding.ASCII.GetBytes(cfg["SecretKey"]!);
+
+        options.TokenValidationParameters = new Microsoft.IdentityModel.Tokens.TokenValidationParameters
+        {
+            ValidateIssuerSigningKey = true,
+            IssuerSigningKey = new SymmetricSecurityKey(key),
+            ValidateIssuer = true,
+            ValidIssuer = cfg["Issuer"],
+            ValidateAudience = true,
+            ValidAudience = cfg["Audience"],
+
+
+
+        };
+    });
+
 
 var app = builder.Build();
 
@@ -37,6 +68,7 @@ if (app.Environment.IsDevelopment())
 
 app.UseHttpsRedirection();
 
+app.UseAuthentication();
 app.UseAuthorization();
 
 app.MapControllers();

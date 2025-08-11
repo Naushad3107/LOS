@@ -6,7 +6,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 namespace LOS.Migrations
 {
     /// <inheritdoc />
-    public partial class test : Migration
+    public partial class UserRoleJwt : Migration
     {
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)
@@ -22,9 +22,10 @@ namespace LOS.Migrations
                     IFSCCode = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     BranchName = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     Address = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    IsActive = table.Column<bool>(type: "bit", nullable: false),
+                    IsActive = table.Column<byte>(type: "tinyint", nullable: false),
                     CreatedAt = table.Column<DateTime>(type: "datetime2", nullable: false),
-                    LastUpdatedAt = table.Column<DateTime>(type: "datetime2", nullable: false)
+                    LastUpdatedAt = table.Column<DateTime>(type: "datetime2", nullable: false),
+                    IsDeleted = table.Column<bool>(type: "bit", nullable: false)
                 },
                 constraints: table =>
                 {
@@ -39,7 +40,8 @@ namespace LOS.Migrations
                         .Annotation("SqlServer:Identity", "1, 1"),
                     CountryName = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     CountryCode = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    IsActive = table.Column<bool>(type: "bit", nullable: false)
+                    IsActive = table.Column<bool>(type: "bit", nullable: false),
+                    IsDeleted = table.Column<bool>(type: "bit", nullable: false)
                 },
                 constraints: table =>
                 {
@@ -54,7 +56,8 @@ namespace LOS.Migrations
                         .Annotation("SqlServer:Identity", "1, 1"),
                     DepartmentName = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     Description = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    IsActive = table.Column<bool>(type: "bit", nullable: false),
+                    IsActive = table.Column<byte>(type: "tinyint", nullable: false),
+                    IsDeleted = table.Column<bool>(type: "bit", nullable: false),
                     CreatedAt = table.Column<DateTime>(type: "datetime2", nullable: false),
                     LastUpdatedAt = table.Column<DateTime>(type: "datetime2", nullable: false)
                 },
@@ -72,7 +75,8 @@ namespace LOS.Migrations
                     DocumentCode = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     DocumentName = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     Description = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    IsActive = table.Column<bool>(type: "bit", nullable: false),
+                    IsActive = table.Column<byte>(type: "tinyint", nullable: false),
+                    IsDeleted = table.Column<bool>(type: "bit", nullable: false),
                     CreatedAt = table.Column<DateTime>(type: "datetime2", nullable: false),
                     LastUpdatedAt = table.Column<DateTime>(type: "datetime2", nullable: false)
                 },
@@ -90,7 +94,8 @@ namespace LOS.Migrations
                     TypeCode = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     TypeName = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     Description = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    IsActive = table.Column<bool>(type: "bit", nullable: false),
+                    IsActive = table.Column<byte>(type: "tinyint", nullable: false),
+                    IsDeleted = table.Column<bool>(type: "bit", nullable: false),
                     CreatedAt = table.Column<DateTime>(type: "datetime2", nullable: false),
                     LastUpdatedAt = table.Column<DateTime>(type: "datetime2", nullable: false)
                 },
@@ -108,7 +113,8 @@ namespace LOS.Migrations
                     OccupationCode = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     OccupationName = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     Description = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    IsActive = table.Column<bool>(type: "bit", nullable: false),
+                    IsActive = table.Column<byte>(type: "tinyint", nullable: false),
+                    IsDeleted = table.Column<bool>(type: "bit", nullable: false),
                     CreatedAt = table.Column<DateTime>(type: "datetime2", nullable: false),
                     LastUpdatedAt = table.Column<DateTime>(type: "datetime2", nullable: false)
                 },
@@ -126,7 +132,8 @@ namespace LOS.Migrations
                     ReasonCode = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     ReasonText = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     Category = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    IsActive = table.Column<bool>(type: "bit", nullable: false),
+                    IsActive = table.Column<byte>(type: "tinyint", nullable: false),
+                    IsDeleted = table.Column<bool>(type: "bit", nullable: false),
                     CreatedAt = table.Column<DateTime>(type: "datetime2", nullable: false),
                     LastUpdatedAt = table.Column<DateTime>(type: "datetime2", nullable: false)
                 },
@@ -143,7 +150,8 @@ namespace LOS.Migrations
                         .Annotation("SqlServer:Identity", "1, 1"),
                     RoleName = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     Description = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    IsActive = table.Column<bool>(type: "bit", nullable: false)
+                    IsActive = table.Column<byte>(type: "tinyint", nullable: false),
+                    IsDeleted = table.Column<bool>(type: "bit", nullable: false)
                 },
                 constraints: table =>
                 {
@@ -159,8 +167,9 @@ namespace LOS.Migrations
                     UserName = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     Email = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     PasswordHash = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    IsActive = table.Column<bool>(type: "bit", nullable: false),
-                    CreatedDate = table.Column<DateTime>(type: "datetime2", nullable: false)
+                    IsActive = table.Column<byte>(type: "tinyint", nullable: false),
+                    CreatedDate = table.Column<DateTime>(type: "datetime2", nullable: false),
+                    IsDeleted = table.Column<bool>(type: "bit", nullable: false)
                 },
                 constraints: table =>
                 {
@@ -174,7 +183,8 @@ namespace LOS.Migrations
                     StateId = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
                     StateName = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    CountryId = table.Column<int>(type: "int", nullable: false)
+                    CountryId = table.Column<int>(type: "int", nullable: false),
+                    IsDeleted = table.Column<bool>(type: "bit", nullable: false)
                 },
                 constraints: table =>
                 {
@@ -191,28 +201,21 @@ namespace LOS.Migrations
                 name: "UserRoles",
                 columns: table => new
                 {
-                    UserRoleId = table.Column<int>(type: "int", nullable: false)
-                        .Annotation("SqlServer:Identity", "1, 1"),
-                    RoleName = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     UserId = table.Column<int>(type: "int", nullable: false),
                     RoleId = table.Column<int>(type: "int", nullable: false),
-                    AssignedAt = table.Column<DateTime>(type: "datetime2", nullable: false),
-                    UserRolesUserRoleId = table.Column<int>(type: "int", nullable: true)
+                    IsActive = table.Column<byte>(type: "tinyint", nullable: false),
+                    IsDeleted = table.Column<bool>(type: "bit", nullable: false),
+                    AssignedAt = table.Column<DateTime>(type: "datetime2", nullable: false)
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_UserRoles", x => x.UserRoleId);
+                    table.PrimaryKey("PK_UserRoles", x => new { x.UserId, x.RoleId });
                     table.ForeignKey(
                         name: "FK_UserRoles_Roles_RoleId",
                         column: x => x.RoleId,
                         principalTable: "Roles",
                         principalColumn: "RoleId",
                         onDelete: ReferentialAction.Restrict);
-                    table.ForeignKey(
-                        name: "FK_UserRoles_UserRoles_UserRolesUserRoleId",
-                        column: x => x.UserRolesUserRoleId,
-                        principalTable: "UserRoles",
-                        principalColumn: "UserRoleId");
                     table.ForeignKey(
                         name: "FK_UserRoles_Users_UserId",
                         column: x => x.UserId,
@@ -229,7 +232,8 @@ namespace LOS.Migrations
                         .Annotation("SqlServer:Identity", "1, 1"),
                     CityName = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     StateId = table.Column<int>(type: "int", nullable: false),
-                    IsActive = table.Column<bool>(type: "bit", nullable: false),
+                    IsActive = table.Column<byte>(type: "tinyint", nullable: false),
+                    IsDeleted = table.Column<bool>(type: "bit", nullable: false),
                     CitiesCityId = table.Column<int>(type: "int", nullable: true)
                 },
                 constraints: table =>
@@ -267,7 +271,8 @@ namespace LOS.Migrations
                     Email = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     IsActive = table.Column<bool>(type: "bit", nullable: false),
                     CreatedAt = table.Column<DateTime>(type: "datetime2", nullable: false),
-                    LastUpdatedAt = table.Column<DateTime>(type: "datetime2", nullable: false)
+                    LastUpdatedAt = table.Column<DateTime>(type: "datetime2", nullable: false),
+                    IsDeleted = table.Column<bool>(type: "bit", nullable: false)
                 },
                 constraints: table =>
                 {
@@ -303,7 +308,8 @@ namespace LOS.Migrations
                     CityId = table.Column<int>(type: "int", nullable: false),
                     StateId = table.Column<int>(type: "int", nullable: false),
                     CountryId = table.Column<int>(type: "int", nullable: false),
-                    IsActive = table.Column<bool>(type: "bit", nullable: false),
+                    IsActive = table.Column<byte>(type: "tinyint", nullable: false),
+                    IsDeleted = table.Column<bool>(type: "bit", nullable: false),
                     CreatedAt = table.Column<DateTime>(type: "datetime2", nullable: false),
                     LastUpdatedAt = table.Column<DateTime>(type: "datetime2", nullable: false)
                 },
@@ -379,16 +385,6 @@ namespace LOS.Migrations
                 name: "IX_UserRoles_RoleId",
                 table: "UserRoles",
                 column: "RoleId");
-
-            migrationBuilder.CreateIndex(
-                name: "IX_UserRoles_UserId",
-                table: "UserRoles",
-                column: "UserId");
-
-            migrationBuilder.CreateIndex(
-                name: "IX_UserRoles_UserRolesUserRoleId",
-                table: "UserRoles",
-                column: "UserRolesUserRoleId");
         }
 
         /// <inheritdoc />

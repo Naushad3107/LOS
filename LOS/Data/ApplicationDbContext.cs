@@ -35,22 +35,22 @@ namespace LOS.Data
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
-            modelBuilder.Entity<UserRoles>(ent =>
+            modelBuilder.Entity<UserRoles>(entity =>
             {
-                ent.HasOne(x => x.Role)
-                .WithMany(x => x.userRoles)
-                .HasForeignKey(x => x.RoleId)
-                .OnDelete(DeleteBehavior.Restrict);
+                entity.HasKey(ur => new { ur.UserId, ur.RoleId });  // Composite PK
 
-            });
-            modelBuilder.Entity<UserRoles>(ent =>
-            {
-                ent.HasOne(x => x.User)
-                .WithMany(x => x.userRoles)
-                .HasForeignKey(x => x.UserId)
-                .OnDelete(DeleteBehavior.Restrict);
+                entity.HasOne(ur => ur.User)
+                    .WithMany(u => u.userRoles)  // Use exact property name from Users model
+                    .HasForeignKey(ur => ur.UserId)
+                    .OnDelete(DeleteBehavior.Restrict);
 
+                entity.HasOne(ur => ur.Role)
+                    .WithMany(r => r.userRoles)  // Use exact property name from Roles model
+                    .HasForeignKey(ur => ur.RoleId)
+                    .OnDelete(DeleteBehavior.Restrict);
             });
+
+
             modelBuilder.Entity<States>(ent =>
             {
                 ent.HasOne(x => x.Country)

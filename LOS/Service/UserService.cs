@@ -2,6 +2,7 @@
 using LOS.DTO.USERDTOs;
 using LOS.Models;
 using LOS.Repository;
+using Microsoft.EntityFrameworkCore;
 
 namespace LOS.Service
 {
@@ -68,5 +69,27 @@ namespace LOS.Service
                 db.SaveChanges();
             }
         }
+
+        public bool VerifyPasswordAsync(Users user, string password)
+        {
+            bool stat = false;
+            if (user.PasswordHash == password) {
+                stat = true;
+            }
+            else
+            {
+                stat = false;
+            }
+                return stat; 
+        }
+        public async Task<Users?> GetByEmailWithRolesAsync(string email)
+        {
+            return await db.Users
+                .Include(u => u.userRoles)
+                .ThenInclude(ur => ur.Role)
+                .FirstOrDefaultAsync(u => u.Email == email);
+        }
+
     }
 }
+

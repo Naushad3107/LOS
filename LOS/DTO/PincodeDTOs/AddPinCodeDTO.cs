@@ -22,7 +22,6 @@ namespace LOS.DTO.PincodeDTOs
 
         public Byte IsActive { get; set; } = 1;
 
-
         public DateTime CreatedAt { get; set; } = DateTime.Now;
 
 

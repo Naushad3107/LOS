@@ -64,7 +64,7 @@ namespace LOS.Migrations
 
                     b.HasKey("BankId");
 
-                    b.ToTable("banks", (string)null);
+                    b.ToTable("banks");
                 });
 
             modelBuilder.Entity("LOS.Models.Branch", b =>
@@ -136,7 +136,7 @@ namespace LOS.Migrations
 
                     b.HasIndex("StateId");
 
-                    b.ToTable("branches", (string)null);
+                    b.ToTable("branches");
                 });
 
             modelBuilder.Entity("LOS.Models.Cities", b =>
@@ -169,7 +169,7 @@ namespace LOS.Migrations
 
                     b.HasIndex("StateId");
 
-                    b.ToTable("cities", (string)null);
+                    b.ToTable("cities");
                 });
 
             modelBuilder.Entity("LOS.Models.Countries", b =>
@@ -196,7 +196,7 @@ namespace LOS.Migrations
 
                     b.HasKey("CountryId");
 
-                    b.ToTable("countries", (string)null);
+                    b.ToTable("countries");
                 });
 
             modelBuilder.Entity("LOS.Models.Department", b =>
@@ -229,7 +229,7 @@ namespace LOS.Migrations
 
                     b.HasKey("DepartmentId");
 
-                    b.ToTable("departments", (string)null);
+                    b.ToTable("departments");
                 });
 
             modelBuilder.Entity("LOS.Models.DocumentType", b =>
@@ -266,7 +266,7 @@ namespace LOS.Migrations
 
                     b.HasKey("DocumentTypeId");
 
-                    b.ToTable("documentTypes", (string)null);
+                    b.ToTable("documentTypes");
                 });
 
             modelBuilder.Entity("LOS.Models.EmployementType", b =>
@@ -303,7 +303,7 @@ namespace LOS.Migrations
 
                     b.HasKey("EmployeementTypeId");
 
-                    b.ToTable("employementTypes", (string)null);
+                    b.ToTable("employementTypes");
                 });
 
             modelBuilder.Entity("LOS.Models.OccupationType", b =>
@@ -340,7 +340,7 @@ namespace LOS.Migrations
 
                     b.HasKey("OccupationTypeId");
 
-                    b.ToTable("occupationTypes", (string)null);
+                    b.ToTable("occupationTypes");
                 });
 
             modelBuilder.Entity("LOS.Models.PincodeMaster", b =>
@@ -388,7 +388,7 @@ namespace LOS.Migrations
 
                     b.HasIndex("StateId");
 
-                    b.ToTable("pincodes", (string)null);
+                    b.ToTable("pincodes");
                 });
 
             modelBuilder.Entity("LOS.Models.RejectionReason", b =>
@@ -425,7 +425,7 @@ namespace LOS.Migrations
 
                     b.HasKey("ReasonId");
 
-                    b.ToTable("rejectionReasons", (string)null);
+                    b.ToTable("rejectionReasons");
                 });
 
             modelBuilder.Entity("LOS.Models.Roles", b =>
@@ -452,7 +452,7 @@ namespace LOS.Migrations
 
                     b.HasKey("RoleId");
 
-                    b.ToTable("Roles", (string)null);
+                    b.ToTable("Roles");
                 });
 
             modelBuilder.Entity("LOS.Models.States", b =>
@@ -477,48 +477,7 @@ namespace LOS.Migrations
 
                     b.HasIndex("CountryId");
 
-                    b.ToTable("States", (string)null);
-                });
-
-            modelBuilder.Entity("LOS.Models.UserRoles", b =>
-                {
-                    b.Property<int>("UserRoleId")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
-
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("UserRoleId"));
-
-                    b.Property<DateTime>("AssignedAt")
-                        .HasColumnType("datetime2");
-
-                    b.Property<byte>("IsActive")
-                        .HasColumnType("tinyint");
-
-                    b.Property<bool>("IsDeleted")
-                        .HasColumnType("bit");
-
-                    b.Property<int>("RoleId")
-                        .HasColumnType("int");
-
-                    b.Property<string>("RoleName")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<int>("UserId")
-                        .HasColumnType("int");
-
-                    b.Property<int?>("UserRolesUserRoleId")
-                        .HasColumnType("int");
-
-                    b.HasKey("UserRoleId");
-
-                    b.HasIndex("RoleId");
-
-                    b.HasIndex("UserId");
-
-                    b.HasIndex("UserRolesUserRoleId");
-
-                    b.ToTable("UserRoles", (string)null);
+                    b.ToTable("States");
                 });
 
             modelBuilder.Entity("LOS.Models.Users", b =>
@@ -552,7 +511,34 @@ namespace LOS.Migrations
 
                     b.HasKey("UserId");
 
-                    b.ToTable("Users", (string)null);
+                    b.ToTable("Users");
+                });
+
+            modelBuilder.Entity("UserRoles", b =>
+                {
+                    b.Property<int>("UserId")
+                        .HasColumnType("int");
+
+                    b.Property<int>("RoleId")
+                        .HasColumnType("int");
+
+                    b.Property<DateTime>("AssignedAt")
+                        .HasColumnType("datetime2");
+
+                    b.Property<byte>("IsActive")
+                        .HasColumnType("tinyint");
+
+                    b.Property<bool>("IsDeleted")
+                        .HasColumnType("bit");
+
+                    b.Property<int>("UserRoleId")
+                        .HasColumnType("int");
+
+                    b.HasKey("UserId", "RoleId");
+
+                    b.HasIndex("RoleId");
+
+                    b.ToTable("UserRoles");
                 });
 
             modelBuilder.Entity("LOS.Models.Branch", b =>
@@ -635,7 +621,7 @@ namespace LOS.Migrations
                     b.Navigation("Country");
                 });
 
-            modelBuilder.Entity("LOS.Models.UserRoles", b =>
+            modelBuilder.Entity("UserRoles", b =>
                 {
                     b.HasOne("LOS.Models.Roles", "Role")
                         .WithMany("userRoles")
@@ -648,10 +634,6 @@ namespace LOS.Migrations
                         .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Restrict)
                         .IsRequired();
-
-                    b.HasOne("LOS.Models.UserRoles", null)
-                        .WithMany("RoleTypes")
-                        .HasForeignKey("UserRolesUserRoleId");
 
                     b.Navigation("Role");
 
@@ -682,11 +664,6 @@ namespace LOS.Migrations
                     b.Navigation("Cities");
 
                     b.Navigation("Pincodes");
-                });
-
-            modelBuilder.Entity("LOS.Models.UserRoles", b =>
-                {
-                    b.Navigation("RoleTypes");
                 });
 
             modelBuilder.Entity("LOS.Models.Users", b =>

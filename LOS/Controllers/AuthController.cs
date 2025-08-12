@@ -29,18 +29,24 @@ namespace LOS.Controllers
             }
             var token = auth.Login(login.Email,login.Password);
 
-            if (token == null) {
-                return Unauthorized();
-            }
+            var result = token.Result;
+            if (result == null) {
 
-            var exp = int.Parse(config.GetSection("JwtSettings")["ExpiryInMinutes"] ?? "60");
+                return BadRequest("Enter Valid Credentials");
 
-            return Ok(new
+            }else if(result == "Invalid Credentials")
             {
-                access_token = token,
-                token_type = "Bearer",
-                expires_in = exp
-            });
+                return BadRequest("Invalid Credentials");
+            }else if(result =="Invalid Password")
+            {
+                return BadRequest("Invalid Password");
+            }
+                return Ok(new
+                {
+                    access_token = token,
+                    token_type = "Bearer",
+
+                });
         }
     }
 }

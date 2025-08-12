@@ -4,6 +4,7 @@ using LOS.Data;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -11,9 +12,11 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace LOS.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    partial class ApplicationDbContextModelSnapshot : ModelSnapshot
+    [Migration("20250811112844_document")]
+    partial class document
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -266,29 +269,7 @@ namespace LOS.Migrations
 
                     b.HasKey("DocumentTypeId");
 
-                    b.ToTable("documentTypes");
-                });
-
-            modelBuilder.Entity("LOS.Models.DocumentUpload", b =>
-                {
-                    b.Property<int>("DocumentId")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
-
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("DocumentId"));
-
-                    b.Property<string>("DocumentName")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("DocumentPath")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<byte>("IsDeleted")
-                        .HasColumnType("tinyint");
-
-                    b.HasKey("DocumentId");
-
-                    b.ToTable("documents");
+                    b.ToTable("DocumentType");
                 });
 
             modelBuilder.Entity("LOS.Models.EmployementType", b =>

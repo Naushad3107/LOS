@@ -1,6 +1,8 @@
 ﻿using AutoMapper;
 using LOS.DTO.CitiesDTOs;
 using LOS.DTO.CountryDTOs;
+using LOS.DTO.DocumentDTOs;
+using LOS.DTO.DocumetDTOs;
 using LOS.DTO.PincodeDTOs;
 using LOS.DTO.RoleDTOs;
 using LOS.DTO.StateDTOs;
@@ -17,6 +19,8 @@ namespace LOS.Mapper
             CreateMap<AddUserDTO, Users>();
             CreateMap<UpdateUserDTO, Users>();
             CreateMap<AddUserRoleDTO, UserRoles>();
+            CreateMap<UploadDocumentDTO, DocumentUpload>();
+            CreateMap<DocumentUpload, FetchFileDTO>();
 
 
             //for user roles

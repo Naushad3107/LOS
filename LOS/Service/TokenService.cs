@@ -38,9 +38,8 @@ namespace LOS.Service
             var token = new JwtSecurityToken(
             issuer: cfg["Issuer"],
             audience: cfg["Audience"],
-            claims: claims,
-            expires: DateTime.UtcNow.AddMinutes(int.Parse(cfg["ExpiryInMinutes"]!)),
-            signingCredentials: creds);
+            claims: claims
+            );
 
             return new JwtSecurityTokenHandler().WriteToken(token);
 

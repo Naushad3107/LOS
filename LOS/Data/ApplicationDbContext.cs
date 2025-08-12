@@ -33,6 +33,8 @@ namespace LOS.Data
 
         public DbSet<Bank> banks { get; set; }
 
+        public DbSet<DocumentUpload> documents { get; set; }
+
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             modelBuilder.Entity<UserRoles>(entity =>
@@ -40,12 +42,12 @@ namespace LOS.Data
                 entity.HasKey(ur => new { ur.UserId, ur.RoleId });  // Composite PK
 
                 entity.HasOne(ur => ur.User)
-                    .WithMany(u => u.userRoles)  // Use exact property name from Users model
+                    .WithMany(u => u.userRoles)  
                     .HasForeignKey(ur => ur.UserId)
                     .OnDelete(DeleteBehavior.Restrict);
 
                 entity.HasOne(ur => ur.Role)
-                    .WithMany(r => r.userRoles)  // Use exact property name from Roles model
+                    .WithMany(r => r.userRoles)  
                     .HasForeignKey(ur => ur.RoleId)
                     .OnDelete(DeleteBehavior.Restrict);
             });

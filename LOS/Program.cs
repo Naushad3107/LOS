@@ -28,6 +28,7 @@ builder.Services.AddScoped<ICities, CitiesService>();
 builder.Services.AddScoped<IPincode, PincodeService>();
 builder.Services.AddScoped<IToken, TokenService>();
 builder.Services.AddScoped<IAuth, AuthService>();
+builder.Services.AddScoped<IFileUpload, FileUploadService>();
 
 builder.Services.AddAutoMapper(typeof(MappingData));
 
@@ -70,6 +71,7 @@ app.UseHttpsRedirection();
 
 app.UseAuthentication();
 app.UseAuthorization();
+app.UseStaticFiles();
 
 app.MapControllers();
 

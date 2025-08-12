@@ -1,6 +1,7 @@
 ﻿
 using LOS.Data;
 using LOS.Repository;
+using Microsoft.AspNetCore.Http.HttpResults;
 using Microsoft.EntityFrameworkCore;
 using System.Threading.Tasks;
 
@@ -28,10 +29,13 @@ namespace LOS.Service
             
             if(user.PasswordHash != password)
             {
-                return null;
+                return "Invalid Password";
             }
-
-            return token.GenerateToken(user);
+            else
+            {
+                token.GenerateToken(user);
+                return "Log-in Successful";
+            }
         }
     }
 }

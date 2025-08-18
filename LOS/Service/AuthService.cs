@@ -33,8 +33,8 @@ namespace LOS.Service
             }
             else
             {
-                token.GenerateToken(user);
-                return "Log-in Successful";
+               var JwtToken = token.GenerateToken(user);
+                return JwtToken;
             }
         }
     }

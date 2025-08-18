@@ -1,13 +1,16 @@
 ﻿using LOS.DTO.LoginDTOs;
 using LOS.Repository;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using System.Threading.Tasks;
 
 namespace LOS.Controllers
 {
+    [AllowAnonymous]
     [Route("api/[controller]")]
     [ApiController]
+    
     public class AuthController : ControllerBase
     {
         IAuth auth;
@@ -27,25 +30,16 @@ namespace LOS.Controllers
             {
                 return BadRequest("Please Enter Credentials");
             }
-            var token = auth.Login(login.Email,login.Password);
+            var token = await auth.Login(login.Email,login.Password);
 
-            var result = token.Result;
-            if (result == null) {
 
-                return BadRequest("Enter Valid Credentials");
-
-            }else if(result == "Invalid Credentials")
+            if (string.IsNullOrEmpty(token) || token.Contains("Invalid"))
             {
-                return BadRequest("Invalid Credentials");
-            }else if(result =="Invalid Password")
-            {
-                return BadRequest("Invalid Password");
+                return Unauthorized(new { message = "Invalid credentials." });
             }
-                return Ok(new
+            return Ok(new
                 {
-                    access_token = token,
-                    token_type = "Bearer",
-
+                    token
                 });
         }
     }

@@ -2,6 +2,7 @@ using LOS.Data;
 using LOS.Mapper;
 using LOS.Repository;
 using LOS.Service;
+using Microsoft.AspNetCore.Authentication.Cookies;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.IdentityModel.Tokens;
@@ -51,11 +52,36 @@ builder.Services.AddAuthentication(options =>
             ValidIssuer = cfg["Issuer"],
             ValidateAudience = true,
             ValidAudience = cfg["Audience"],
+        };
 
+        options.Events = new JwtBearerEvents
+        {
+            OnChallenge = context =>
+            {
 
-
+                context.HandleResponse();
+                context.Response.StatusCode = 401;
+                return Task.CompletedTask;
+            }
         };
     });
+
+builder.Services.AddAuthentication(CookieAuthenticationDefaults.AuthenticationScheme)
+    .AddCookie(options =>
+    {
+        options.LoginPath = "/Login/Login";  // Redirect here if unauthorized
+    });
+
+
+
+builder.Services.AddCors(options =>
+{
+    options.AddPolicy("AllowFrontend",
+        builder => builder.WithOrigins("http://localhost:4200")
+                          .AllowAnyHeader()
+                          .AllowAnyMethod());
+});
+
 
 
 var app = builder.Build();
@@ -73,6 +99,7 @@ app.UseAuthentication();
 app.UseAuthorization();
 app.UseStaticFiles();
 
+app.UseCors("AllowFrontend");
 app.MapControllers();
 
 app.Run();

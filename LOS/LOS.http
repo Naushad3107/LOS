@@ -1,6 +1,6 @@
-@LOS_HostAddress = http://localhost:5224
+@LOS_HostAddress = https://localhost:5224;
 
-GET {{LOS_HostAddress}}/weatherforecast/
-Accept: application/json
+# GET {{LOS_HostAddress}}/weatherforecast/
+# Accept: application/json
 
-###
+##
